@@ -12,7 +12,7 @@ const port = 3000
 //chamando os controllers 
 motoboyController(app)
 
-
+//abrindo o servidor na porta escolhida
 app.listen(port, ()=>{
     console.log(`Servidor aberto na http://localhost:${port}/`)
 })
