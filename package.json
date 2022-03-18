@@ -19,5 +19,7 @@
   "bugs": {
     "url": "https://github.com/andre21cavalcante/Projeto-Restaurante-API/issues"
   },
-  "homepage": "https://github.com/andre21cavalcante/Projeto-Restaurante-API#readme"
+  "homepage": "https://github.com/andre21cavalcante/Projeto-Restaurante-API#readme",
+  "type": "module"
 }
+
