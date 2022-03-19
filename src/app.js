@@ -23,9 +23,6 @@ app.use(express.json())
 motoboyMiddleware(app)
 
 //chamando os controllers 
-motoboyController(app, bd)
+motoboyController(app, database)
 
-//abrindo o servidor na porta escolhida
-app.listen(port, ()=>{
-    console.log(`Servidor aberto na http://localhost:${port}/`)
-})
+export default app 
