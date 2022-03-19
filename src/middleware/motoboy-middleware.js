@@ -1,35 +1,14 @@
-const motoboyMiddleware = (app)=>{
-
-    // Valida se body tem o campo senha 
-    app.use("/motoboy", (req, res, next)=>{
-        //Verifica se estou usando um metodo POST para fazer a validação
-        if(req.method == "POST"){
-            const body = req.body
-            if(!body.senha)
-                res.json({
-                    "erro" : true,
-                    "msg" : "Campo obrigatorio senha não foi enviado"
-                })
-                else
-                    next()
-        }else{
-            next()
-        }
-    })
-
-    //valida se o usuário pode entrar
-    app.use("/motoboy", (req, res, next)=>{
-        if(req.method === "POST"){
-            const body = req.body
-            if(body.nome === "drezada"){
-                res.send("biribiri ")
-            }else{
-                next()
-            }
-        }else{
-            next()
-        }
+const generalMiddleware = (app)=>{
+    //middleware só para mostrar o que vem
+    // no body e no header 
+    app.use((req, res, next)=>{
+        const body = req.body
+        const headers = req.headers
+        console.log(body)
+        console.log(headers)
+        console.log(req.method)
+        next()
     })
 }
 
-export default motoboyMiddleware
+export default generalMiddleware

@@ -7,6 +7,9 @@ import motoboyController from "./controllers/motoboy-controller";
 //Importando os middlewares 
 import motoboyMiddleware from "./middleware/motoboy-middleware";
 
+//importando banco de dados
+import bd from "./database/bd.js"
+
 //Instaciando/criando servidor
 const app = express()
 //Escolhendo a porta
@@ -20,7 +23,7 @@ app.use(express.json())
 motoboyMiddleware(app)
 
 //chamando os controllers 
-motoboyController(app)
+motoboyController(app, bd)
 
 //abrindo o servidor na porta escolhida
 app.listen(port, ()=>{
