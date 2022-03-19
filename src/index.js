@@ -7,9 +7,6 @@ import motoboyController from "./controllers/motoboy-controller";
 //Importando os middlewares 
 import motoboyMiddleware from "./middleware/motoboy-middleware";
 
-//importando banco de dados
-
-
 //banco de dados sqlite
 import database from "./database/sqlite-db.js"
 
