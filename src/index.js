@@ -8,7 +8,10 @@ import motoboyController from "./controllers/motoboy-controller";
 import motoboyMiddleware from "./middleware/motoboy-middleware";
 
 //importando banco de dados
-import bd from "./database/bd.js"
+
+
+//banco de dados sqlite
+import database from "./database/sqlite-db.js"
 
 //Instaciando/criando servidor
 const app = express()

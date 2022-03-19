@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "express": "^4.17.3",
-    "nodejs": "^0.0.0"
+    "nodejs": "^0.0.0",
+    "sqlite3": "^5.0.0"
   },
   "name": "api-motoboy",
   "version": "0.0.1",
@@ -22,4 +23,3 @@
   "homepage": "https://github.com/andre21cavalcante/Projeto-Restaurante-API#readme",
   "type": "module"
 }
-
