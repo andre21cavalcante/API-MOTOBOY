@@ -20,12 +20,12 @@ const motoboyController = (app, bd)=>{
         }       
     })
 
-    app.get('/motoboy/contato/:contato', async (req, res)=>{
+    app.get('/motoboy/pedido/:pedido', async (req, res)=>{
         
-        const email = req.params.email
+        const pedido = req.params.pedido
 
         
-        res.json(await motoboyModel.pegaUmMotoboy(email))
+        res.json(await motoboyModel.pegaUmMotoboy(pedido))
     })
 
     app.post('/motoboy',async (req, res)=>{

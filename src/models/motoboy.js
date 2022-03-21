@@ -1,27 +1,23 @@
-import MotoboyDAO from "../DAO/motoboyDAO";
-import MotoboySchema from "./schema/MotoboySchema";
+import MotoboyDAO from "../DAO/MotoboyDAO.js";
+import MotoboySchema from "./schema/MotoboySchema.js";
 
 class Motoboy{
     constructor(db){
         this.dao = new MotoboyDAO(db)
     }
 
-    pegaTodosMotoboy = async()=>{
+    pegaTodosMotoboy = async ()=>{
         try{
-            return await this.dao.pegaTodosMotoboy()
+            return await this.dao.pegaTodosMotoboys()
         }catch (error){
-            throw new Error (erro.mensagem)
+            throw error
         }
     }
-
-    pegaUmMotoboy = async(contato)=>{
+    pegaUmMotoboy = async(pedido)=>{
         try{
-            return await this.dao.pegaUmMotoboy(contato)
+            return await this.dao.pegaUmMotoboy(pedido)
         }catch(error){
-            return{
-                "mensagem": error.mensagem,
-                "erro": true
-            }
+           throw error
         }
     }
     insereMotoboy = async (motoboy)=>{
@@ -29,7 +25,7 @@ class Motoboy{
             const novoMotoboy = new MotoboySchema(motoboy.nome, motoboy.moto, motoboy.contato, motoboy.pedido)
             return await this.dao.insereMotoboy(novoMotoboy)
         } catch (error) {
-            throw new Error(error.mensagem)
+            throw error
         }
     }
 
@@ -40,33 +36,28 @@ class Motoboy{
             
             return await this.dao.deletaMotoboy(id)
         } catch (error) {
-            return {
-                "mensagem": error.message,
-                "erro" : true
-            }
+           throw error
         }
     }
 
-    atualizaMotoboy = async (id, Motoboy)=>{
+    atualizaMotoboy = async (id, motoboy)=>{
         try {
             await this._verificaMotoboy(id)
 
-            // utiliza a classe para validação dos dados recebidos
+           
             const motoboyAtualizado = new MotoboySchema(motoboy.nome, motoboy.moto, motoboy.contato, motoboy.pedido)
 
             return await this.dao.atualizaMotoboy(id, motoboyAtualizado)
         } catch (error) {
-            return ({
-                "mensagem": error.message,
-                "erro" : true
-            })
+            
+            throw(error)
         }
     }
 
-    // Podemos criar um metodo privado que verifica se o dado existe!!
+    
     _verificaMotoboy = async (id)=>{
         const resposta = await this.dao.pegaUmMotoboyId(id)
-        if(resposta.motoboy.length === 0){
+        if(resposta.length === 0){
             throw new Error(`Motoboy de id ${id} não existe`)
         }
     }

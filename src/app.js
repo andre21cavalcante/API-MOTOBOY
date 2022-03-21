@@ -2,18 +2,17 @@
 import express from "express";
 
 //Importanto os controllers
-import motoboyController from "./controllers/motoboy-controller";
+import motoboyController from "./controllers/motoboy-controller.js";
 
 //Importando os middlewares 
-import motoboyMiddleware from "./middleware/motoboy-middleware";
+import motoboyMiddleware from "./middleware/motoboy-middleware.js";
 
 //banco de dados sqlite
 import database from "./database/sqlite-db.js"
 
 //Instaciando/criando servidor
 const app = express()
-//Escolhendo a porta
-const port = 3000 
+
 
 // Middleware necessario para fazer o parser do 
 //JSON recebido do body em objeto 

@@ -23,7 +23,9 @@ INSERT INTO MOTOBOYS (ID, NOME, MOTO, CONTATO, PEDIDO)
 VALUES 
     (1, "ANDRÉ SANTOS", "HONDA", "123456", "10"),
     (2, "JEFFERSON", "BMW", "123456","12"),
-    (3, "CLEBER", "DUCATI", 123456, "13")    
+    (3, "CLEBER", "DUCATI", "123456", "13"),
+    (4, "MICHAEL JACKSON", "YAMAHA", "342564", "20"),
+    (5, "REGINALDO", "HONDA","231436", "24")    
 `
 
 function criaTabelaMtb() {
