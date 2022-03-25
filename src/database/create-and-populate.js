@@ -10,7 +10,7 @@ const db = new sqlite3.Database('./database.db');
 
 //==== Usuários
 const MOTOBOY_SCHEMA = `
-CREATE TABLE IF NOT EXISTS "MOTOBOYS" (
+CREATE TABLE IF NOT EXISTS 'MOTOBOYS' (
     "ID" INTEGER PRIMARY KEY AUTOINCREMENT,
     "NOME" varchar(64),
     "MOTO" varchar(64),
@@ -21,23 +21,23 @@ CREATE TABLE IF NOT EXISTS "MOTOBOYS" (
 const ADD_MOTOBOY_DATA = `
 INSERT INTO MOTOBOYS (ID, NOME, MOTO, CONTATO, PEDIDO)
 VALUES 
-    (1, "ANDRÉ SANTOS", "HONDA", "123456", "10"),
-    (2, "JEFFERSON", "BMW", "123456","12"),
-    (3, "CLEBER", "DUCATI", "123456", "13"),
-    (4, "MICHAEL JACKSON", "YAMAHA", "342564", "20"),
-    (5, "REGINALDO", "HONDA","231436", "24")    
+    (1, 'ANDRÉ SANTOS', 'HONDA', '219845632175', '10'),
+    (2, 'JEFFERSON', 'BMW', '21954876954','12'),
+    (3, 'CLEBER', 'DUCATI', '21954876321', '13'),
+    (4, 'MICHAEL JACKSON', 'YAMAHA', '21986547320', '20'),
+    (5, 'REGINALDO', 'HONDA','21958476321', '24')    
 `
 
 function criaTabelaMtb() {
     db.run(MOTOBOY_SCHEMA, (error)=> {
-       if (error) console.log("Erro ao criar tabela de motoboy");
+       if (error) console.log('Erro ao criar tabela de motoboy');
     });
 }
 
 
 function populaTabelaMtb() {
     db.run(ADD_MOTOBOY_DATA, (error)=> {
-       if (error) console.log("Erro ao popular tabela de motoboy");
+       if (error) console.log('Erro ao popular tabela de motoboy');
     });
 }
 
