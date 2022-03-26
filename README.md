@@ -73,7 +73,7 @@ npm run dev
     }
     ```
 
- * **GET /motoboy/moto/{moto}**
+ * **GET /motoboy/id/{id}**
  
     Schema da resposta
     ```
