@@ -4,65 +4,56 @@ class MotoboyDAO{
         this.db = db
     }
 
-   
-    pegaTodosMotoboy = ()=>{
-        
+    pegaTodosMotoboys = ()=>{
         return new Promise((resolve, reject)=>{
             this.db.all('SELECT * FROM MOTOBOYS', (error, rows)=>{
                 if(error){
-                    reject({
-                        "mensagem": error.message,
-                        "erro": true
-                    })
+                    reject(error)
                 }else{
-                    resolve({
-                        "motoboy": rows,
-                        "erro": false
-                    })
+                    resolve(rows)
                 }
             })
         })
     }
 
-    pegaUmMotoboy = (moto)=>{
+    pegaUmMotoboy = (id)=>{
         return new Promise((resolve, reject)=>{
-            this.db.all('SELECT * FROM MOTOBOYS WHERE MOTO = ?',
-            moto,
+            this.db.all('SELECT * FROM MOTOBOYS WHERE ID = ?',
+            id,
             (error, rows)=>{
                 if(error){
-                    reject({
-                        "mensagem": error.message,
-                        "erro": true
-                    })
+                    reject(error)
                 }else{
-                    resolve({
-                        "motoboy": rows,
-                        "erro": false
-                    })
+                    resolve(rows)
                 }
             })
         })
+    }
 
+    pegaUmMotoboyId = (id)=>{
+        return new Promise((resolve, reject)=>{
+            this.db.all('SELECT * FROM MOTOBOYS WHERE ID = ?',
+            id,
+            (error, rows)=>{
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(rows)
+                }
+            })
+        })
     }
 
     insereMotoboy = (novoMotoboy) =>{
 
         return new Promise((resolve, reject)=>{
-           
-            this.db.run("INSERT INTO MOTOBOYS(NOME, MOTO, CONTATO, PEDIDO ) VALUES (?, ?, ?, ?)",
-                novoMotoboy.nome, novoMotoboy.moto, novoMotoboy.contato, novoMotoboy.pedido, 
+            this.db.run("INSERT INTO MOTOBOYS (NOME, MOTO, CONTATO, PEDIDO) VALUES (?, ?, ?, ?)",
+                novoMotoboy.nome, novoMotoboy.moto, novoMotoboy.contato, novoMotoboy.pedido,
                 (error)=>{
                 if(error){
-                    reject({
-                        "mensagem": error.message,
-                        "erro": true
-                    })
+                    reject(error)
                 }else{
-                    resolve({
-                        "mensagem": `Motoboy ${novoMotoboy.nome} inserido com sucesso`,
-                        "Motoboy": novoMotoboy,
-                        "erro": false
-                    })
+                    resolve(`Motoboy ${novoMotoboy.nome} inserido com sucesso`)
                 }
             })
         })
@@ -75,37 +66,24 @@ class MotoboyDAO{
             id,
             (error)=>{
                 if(error){
-                    reject({
-                        "mensagem": error.message,
-                        "erro": true
-                    })
+                    reject(error)
                 }else{
-                    resolve({
-                        "usuario": `Motoboy de id ${id} deletado com sucesso`,
-                        "erro": false
-                    })
+                    resolve(`Motoboy de id ${id} deletado com sucesso`)
                 }
             })
         })
     }
 
-    atualizaMotooby = (id, motoboy)=>{
+    atualizaMotoboy = (id, motoboy)=>{
         return new Promise((resolve, reject)=>{
-            this.db.run('UPDATE MOTOBOYS SET NOME = ?, MOTO = ?, CONTATO = ? WHERE ID = ?, PEDIDO = ?',
+            this.db.run('UPDATE MOTOBOYS SET NOME = ?, MOTO = ?, CONTATO = ?, PEDIDO = ? WHERE ID = ?',
             motoboy.nome, motoboy.moto, motoboy.contato, motoboy.pedido,
             id,
             (error)=>{
                 if(error){
-                    reject({
-                        "mensagem": error.message,
-                        "erro": true
-                    })
+                    reject(error)
                 }else{
-                    resolve({
-                        "mensagem": `Motoboy de id ${id} atualizado com sucesso`,
-                        "usuario": usuario,
-                        "erro": false
-                    })
+                    resolve(`Motoboy de id ${id} atualizado com sucesso`)
                 }
             })
         })

@@ -1,5 +1,5 @@
 const database = {
-    motoboy : [],
+    motoboys : [],
 }
 
 export default database 

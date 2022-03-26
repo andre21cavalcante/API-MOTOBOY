@@ -1,20 +1,63 @@
-class Motoboy{
-    constructor(nome, moto, contato, pedido){
-        this.nome = nome
-        this.moto = moto
-        this.contato = this._validaContato(contato)
-        this.pedido = pedido
-    }  
+import MotoboyDAO from '../DAO/MotoboyDAO.js'
+import MotoboySchema from './schema/Motoboy-Schema.js'
 
-    _validaContato = (contato)=>{
-        if(contato.length >= 11){
-            return senha
-        }
-        else{
-            throw new Error("A contato precisa ter o DDD e o numero de telefone (xx)-xxxxx-xxxx")
+class Motoboy{
+    constructor(db){
+        this.dao = new MotoboyDAO(db)
+    }
+
+    pegaTodosMotoboys = async ()=>{
+        try {
+            return await this.dao.pegaTodosMotoboys()
+        } catch (error) {
+            throw error
         }
     }
 
+    pegaUmMotoboy = async (id)=>{
+        try {
+            return await this.dao.pegaUmMotoboy(id)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    insereMotoboy = async (motoboy)=>{
+        try {
+            const novoMotoboy = new MotoboySchema(motoboy.nome, motoboy.moto, motoboy.contato, motoboy.pedido)
+            return await this.dao.insereMotoboy(novoMotoboy)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    deletaMotoboy = async (id)=>{
+        try {
+            await this._verificaMotoboy(id)
+            
+            return await this.dao.deletaMotoboy(id)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    atualizaMotoboy = async (id, motoboy)=>{
+        try {
+            await this._verificaMotoboy(id)
+
+            const motoboyAtualizado = new MotoboySchema(motoboy.nome, motoboy.moto, motoboy.contato, motoboy.pedido)
+
+            return await this.dao.atualizaMotoboy(id, motoboyAtualizado)
+        } catch (error) {
+            throw error
+        }
+    }
+    _verificaMotoboy = async (id)=>{
+        const resposta = await this.dao.pegaUmMotoboyId(id)
+        if(resposta.length === 0){
+            throw new Error(`Motoboy de id ${id} não existe`)
+        }
+    }
 }
 
 export default Motoboy

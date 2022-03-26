@@ -1,93 +1,100 @@
-import Motoboy from "../models/Motoboy.js"
-import MotoboyDAO from '../DAO/MotoboyDAO.js'
+import Motoboy from '../models/Motoboy.js'
 
-const motoboyController = (app, bd)=>{
-    const motoboyDAO = new MotoboyDAO(bd)
+const motoboyController = (app, db)=>{
+    const motoboyModel = new Motoboy(db)
 
-    app.get('/motoboy', (req, res)=>{
-        motoboyDAO.pegaTodosMotoboy()
-        .then((resposta)=>{
-            res.status(200).json(resposta)
-        })
-        .catch((erro)=>{
-            res.status(400).json(erro)
-        })
-    })
-
-    app.get('/motoboy/moto/:moto', (req, res)=>{
-        
-        const motoboy = req.params.motoboy
-
-        motoboyDAO.pegaUmMotoboy(moto)
-        .then((resposta)=>{
-            res.json(resposta)
-        })
-        .catch((erro)=>{
-            res.json(erro)
-        })
-    })
-
-    app.post('/motoboy',(req, res)=>{
-        
-        const body = req.body
-
+    app.get('/motoboy', async (req, res)=>{
         try {
-            
-            const novoMotoboy = new Motoboy(body.nome, body.moto, body.contato, body.pedido)
-
-            motoboyDAO.insereMotoboy(novoMotoboy)
-            .then((resposta)=>{
-                res.status(201).json(resposta)
+            const resposta = await motoboyModel.pegaTodosMotoboys()
+            res.status(200)
+            .json({
+                "motoboys" : resposta,
+                "erro" : false
             })
-            .catch((erro)=>{
-                res.status(400).json(erro)
-            })
-
         } catch (error) {
-        
-            res.status(400).json({
-                "msg": error.message,
-                "erro": true
+            res.status(400)
+            .json({
+                "mensagem" : error.message,
+                "erro" : true
             })
-        }  
+        }       
     })
 
-    app.delete('/motoboy/id/:id', (req, res)=>{
+    app.get('/motoboy/id/:id', async (req, res)=>{
+        const id = req.params.id
+        try {
+            const resposta = await motoboyModel.pegaUmMotoboy(id)
+            res.status(200)
+            .json({
+                "motoboys" : resposta,
+                "erro" : false
+            })
+        } catch (error) {
+            res.status(400)
+            .json({
+                "mensagem" : error.message,
+                "erro" : true
+            })
+        }          
+    })
+
+    app.post('/motoboy',async (req, res)=>{
+        // Recebe o corpo da requisição
+        const body = req.body
+        try {
+            const resposta = await motoboyModel.insereMotoboy(body)
+            res.status(201)
+            .json({
+                "mensagem" : resposta,
+                "motoboy": body,
+                "erro" : false
+            })
+        } catch (error) {
+            res.status(400)
+            .json({
+                "mensagem" : error.message,
+                "erro" : true
+            })
+        }
+    })
+
+    app.delete('/motoboy/id/:id', async (req, res)=>{
         const id = req.params.id
 
-        
-        motoboyDAO.deletaMotoboy(id)
-        .then((resposta)=>{
-            res.json(resposta)
-        })
-        .catch((erro)=>{
-            res.json(erro)
-        })
+        try {
+            const resposta = await motoboyModel.deletaMotoboy(id)
+            res.status(200)
+            .json({
+                "mensagem" : resposta,
+                "erro" : false
+            })
+            
+        } catch (error) {
+            res.status(400)
+            .json({
+                "mensagem" : error.message,
+                "erro" : true
+            })
+        }
     })
 
-    app.put('/motoboy/id/:id', (req, res)=>{
-        
+    app.put('/motoboy/id/:id', async (req, res)=>{
         const id = req.params.id
 
         const body = req.body
-
         try {
-            const motoboyAtualizado = new Usuario(body.nome, body.moto, body.contato, body.pedido)
-
-       
-            motoboyDAO.atualizaMotooby(id, motoboyAtualizado)
-            .then((resposta)=>{
-                res.json(resposta)
+            const resposta = await motoboyModel.atualizaMotoboy(id, body)
+            res.status(200)
+            .json({
+                "mensagem" : resposta,
+                "motoboy": body,
+                "erro" : false
             })
-            .catch((erro)=>{
-                res.json(erro)
-            })
-
         } catch (error) {
-            
-            res.json({
-                "msg": error.message,
-                "erro": true
+            res.status(400)
+            .json({
+                "mensagem" : error.message,
+                "erro" : true
             })
         }
     })
